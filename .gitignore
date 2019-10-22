@@ -1,0 +1,8 @@
+build/
+devel/
+
+# Ignore bags
+*.bag
+
+# VScode
+*.vscode
