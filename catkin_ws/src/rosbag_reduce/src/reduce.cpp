@@ -34,7 +34,7 @@ void ReduceResolution::CallbackVideo(const sensor_msgs::ImageConstPtr& data)
   }
 
   // Reduce size of image message
-  cv::resize(frame_, frame_reduced_, sd_resolution_);
+  cv::resize(frame_, frame_reduced_, sd_resolution_, 0, 0, cv::INTER_AREA);
   msg_->image = frame_reduced_;
 
   // Publish reduced image
