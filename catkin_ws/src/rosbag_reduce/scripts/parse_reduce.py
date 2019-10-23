@@ -10,13 +10,7 @@ def main(argv):
   # initialization variables
   init = True
 
-  # import/export parameters/objects
-  in_bag_name = '/home/haydenm2/bagfiles/data_054_2019-08-20T08_57_14.bag'
-  out_bag_name = '/home/haydenm2/bagfiles/reduced.bag'
-  img_topic = '/pylon_camera_node/image_raw'
-  resize_scale = 0.01
-
-  # terminal argument assignment
+  # input argument parsing
   try:
     opts, args = getopt.getopt(argv,"i:o:t:r:",["ifile=","ofile=","topic=","ratio="])
   except getopt.GetoptError:
@@ -31,6 +25,53 @@ def main(argv):
          img_topic = arg
       elif opt in ("-r", "--ratio"):
          resize_scale = float(arg)
+
+  # validate input arguments -------------------------------------------------
+  try:
+    in_bag_name
+  except NameError:
+    print("\033[1;31m ERROR: Must define input bag path! \033[0;0m")
+    print('parse_reduce.py -i <inputbagpath> -o <outputbagpath> -t <imagetopic> -r <reductionratio>')
+    sys.exit(2)
+  else:
+    print("\033[1;33m Input Bag: \033[0;0m %s" % in_bag_name)
+  
+  try:
+    out_bag_name
+  except NameError:
+    print("\033[1;31m ERROR: Must define output bag path! \033[0;0m")
+    print('parse_reduce.py -i <inputbagpath> -o <outputbagpath> -t <imagetopic> -r <reductionratio>')
+    sys.exit(2)
+  else:
+    print("\033[1;33m Output Bag: \033[0;0m %s" % out_bag_name)
+
+  try:
+    img_topic
+  except NameError:
+    print("\033[1;31m ERROR: Must define image topic! \033[0;0m")
+    print('parse_reduce.py -i <inputbagpath> -o <outputbagpath> -t <imagetopic> -r <reductionratio>')
+    sys.exit(2)
+  else:
+    print("\033[1;33m Image Topic: \033[0;0m %s" % img_topic)
+  
+  try:
+    resize_scale
+  except NameError:
+    print("\033[1;31m ERROR: Must define desired reduction ratio! \033[0;0m")
+    print('parse_reduce.py -i <inputbagpath> -o <outputbagpath> -t <imagetopic> -r <reductionratio>')
+    sys.exit(2)
+  else:
+    print("\033[1;33m Reduction Ratio: \033[0;0m %s" % resize_scale)
+  
+  if(in_bag_name[-4:] != ".bag"):
+    print("\033[1;31m ERROR: Input bag path must be in .bag format \033[0;0m")
+    sys.exit(2)
+  
+  if(out_bag_name[-4:] != ".bag"):
+    print("\033[1;31m ERROR: Output bag path must be in .bag format \033[0;0m")
+    sys.exit(2)
+
+  # --------------------------------------------------------------------------
 
   in_bag = rosbag.Bag(in_bag_name)
   out_bag = rosbag.Bag(out_bag_name, 'w')
