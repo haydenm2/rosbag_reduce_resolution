@@ -105,7 +105,7 @@ def main(argv):
     cv_image_reduced = cv2.resize(cv_image, reduced_dim, interpolation = cv2.INTER_AREA)
 
     # convert back to ROS format and write to bag
-    I_new = bridge.cv2_to_imgmsg(cv_image_reduced)
+    I_new = bridge.cv2_to_imgmsg(cv_image_reduced, enc)
     out_bag.write(img_topic, I_new, t=t)
     
     # print progress percentage
