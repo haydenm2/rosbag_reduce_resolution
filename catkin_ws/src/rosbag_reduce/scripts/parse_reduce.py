@@ -86,6 +86,14 @@ def main(argv):
 
   # iterate through incoming bag
   for topic, msg, t in in_bag.read_messages(topics=[img_topic]):  
+    if(resize_scale == 1.0):
+      out_bag.write(img_topic, msg, t=t)
+    
+      # print progress percentage
+      print "\r \033[1;31m Percent Complete: \033[0;0m %f %%" % (((t.to_sec()-t_begin)/t_total)*100),
+      sys.stdout.flush()
+      continue
+
     I = Image()
     I = msg
     enc = I.encoding
@@ -111,7 +119,6 @@ def main(argv):
     # print progress percentage
     print "\r \033[1;31m Percent Complete: \033[0;0m %f %%" % (((t.to_sec()-t_begin)/t_total)*100),
     sys.stdout.flush()
-    pass
 
   # completion printout and bag closures
   print("\n \033[1;32m Rosbag Resolution Reduction Complete! \033[0;0m")
