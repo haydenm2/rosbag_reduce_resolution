@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys, getopt
 import rosbag
@@ -90,7 +90,7 @@ def main(argv):
       out_bag.write(img_topic, msg, t=t)
     
       # print progress percentage
-      print "\r \033[1;31m Percent Complete: \033[0;0m %f %%" % (((t.to_sec()-t_begin)/t_total)*100),
+      print('\033[1;31m Percent Complete: \033[0;0m', (((t.to_sec()-t_begin)/t_total)*100), end='\r')
       sys.stdout.flush()
       continue
 
@@ -117,7 +117,7 @@ def main(argv):
     out_bag.write(img_topic, I_new, t=t)
     
     # print progress percentage
-    print "\r \033[1;31m Percent Complete: \033[0;0m %f %%" % (((t.to_sec()-t_begin)/t_total)*100),
+    print('\033[1;31m Percent Complete: \033[0;0m', (((t.to_sec()-t_begin)/t_total)*100), end='\r')
     sys.stdout.flush()
 
   # completion printout and bag closures
