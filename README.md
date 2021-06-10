@@ -37,7 +37,7 @@ $ source devel/setup.bash
 The python parsing script directly parses a given ROSbag file on a specified image topic. It can be run with the following command:
 
 ```bash
-$ cd /<path_to_workspace>/catkin_ws/src/rosbag_reduce/scripts
+$ cd /<path_to_workspace>/src/rosbag_reduce_resolution/scripts
 $ python parse_reduce.py -o '/<desired_output_rosbag_path>/<output_rosbag_name>.bag' -t '<video_rostopic_name>' -i '/<path_to_input_rosbag>/<input_rosbag_name>.bag' -r <resolution_resize_ratio> -p <passthrough_topics (optional)> -c <camera_info_topic (optional)>
 ```
 In general the following flags indicate:
